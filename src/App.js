@@ -1,6 +1,13 @@
 import { Route, Switch } from "react-router";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { CharacterDetails, Characters, Home, Settings, Weapons } from "./pages";
+import {
+	CharacterDetails,
+	Characters,
+	Home,
+	Settings,
+	WeaponDetails,
+	Weapons,
+} from "./pages";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 import { selectType } from "slices/themesSlice";
@@ -19,6 +26,7 @@ export default function App() {
 					<Route path="/characters" exact component={Characters} />
 					<Route path="/characters/:name" exact component={CharacterDetails} />
 					<Route path="/weapons" exact component={Weapons} />
+					<Route path="/weapons/:name" exact component={WeaponDetails} />
 					<Route path="/settings" exact component={Settings} />
 				</Switch>
 			</ThemeProvider>

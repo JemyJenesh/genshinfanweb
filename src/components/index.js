@@ -3,5 +3,15 @@ import Character from "./Character";
 import Header from "./Header";
 import HideOnScroll from "./HideOnScroll";
 import Layout from "./Layout";
+import ScrollTop from "./ScrollToTop";
+import Weapon from "./Weapon";
 
-export { Header, Character, Layout, BottomTab, HideOnScroll };
+export {
+	Weapon,
+	ScrollTop,
+	Header,
+	Character,
+	Layout,
+	BottomTab,
+	HideOnScroll,
+};
