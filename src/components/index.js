@@ -1,3 +1,6 @@
-import DashboardHeader from "./DashboardHeader";
+import BottomTab from "./BottomTab";
+import Header from "./Header";
+import HideOnScroll from "./HideOnScroll";
+import Layout from "./Layout";
 
-export { DashboardHeader };
+export { Header, Layout, BottomTab, HideOnScroll };

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "template/src"
+    "baseUrl": "src"
   },
-  "include": ["template/src"]
+  "include": ["src"]
 }
