@@ -5,12 +5,14 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import Icon from "img/icon.png";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectType, toggleDark } from "slices/themesSlice";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -22,17 +24,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = forwardRef((props, ref) => {
+	const { title } = props;
 	const classes = useStyles();
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const type = useSelector(selectType);
 	const icon = type === "dark" ? <Brightness7Icon /> : <Brightness4Icon />;
 	const handleToggleDark = () => dispatch(toggleDark());
+	const handleBack = () => history.goBack();
 
 	return (
 		<AppBar ref={ref} position="sticky" elevation={0} color="default">
 			<Toolbar className={classes.root}>
-				<Avatar alt="app icon" src={Icon} />
-				<Typography variant="h6">Genshin Fan Web</Typography>
+				{title ? (
+					<IconButton edge="start" onClick={handleBack}>
+						<ArrowBackIcon />
+					</IconButton>
+				) : (
+					<Avatar alt="app icon" src={Icon} />
+				)}
+				<Typography variant="h6">{title ?? "Genshin Fan Web"}</Typography>
 				<IconButton edge="end" onClick={handleToggleDark}>
 					{icon}
 				</IconButton>

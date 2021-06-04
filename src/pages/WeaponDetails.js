@@ -36,7 +36,7 @@ export default function WeaponDetails() {
 
 	if (isLoading)
 		return (
-			<Layout>
+			<Layout title={name}>
 				<Grid container justify="center" spacing={4}>
 					<Grid item xs={12} lg={4}>
 						<Box maxWidth="300px" mx="auto">
@@ -56,7 +56,7 @@ export default function WeaponDetails() {
 	const { weapon } = data.payload;
 
 	return (
-		<Layout showTabs={false}>
+		<Layout showTabs={false} title={name}>
 			<Grid container justify="flex-end" spacing={4}>
 				<Grid
 					container

@@ -39,7 +39,7 @@ export default function CharacterDetails() {
 
 	if (isLoading)
 		return (
-			<Layout>
+			<Layout title={name}>
 				<Grid container justify="center" spacing={4}>
 					<Grid item xs={12} lg={4}>
 						<Box maxWidth="300px" mx="auto">
@@ -59,7 +59,7 @@ export default function CharacterDetails() {
 	const { character } = data.payload;
 
 	return (
-		<Layout showTabs={false}>
+		<Layout showTabs={false} title={name}>
 			<Grid container justify="flex-end" spacing={4}>
 				<Grid container item xs={12} lg={4} alignContent="flex-start">
 					<Grid

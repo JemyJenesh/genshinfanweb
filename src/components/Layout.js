@@ -4,12 +4,12 @@ import { BottomTab, Header, HideOnScroll, ScrollTop } from "components";
 import Fab from "@material-ui/core/Fab";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 
-export default function Layout({ children, showTabs = true }) {
+export default function Layout({ children, showTabs = true, title }) {
 	return (
 		<Paper elevation={0} square style={{ minHeight: "100vh" }}>
 			<div id="back-to-top-anchor" />
 			<HideOnScroll>
-				<Header />
+				<Header title={title} />
 			</HideOnScroll>
 			<Container fixed>
 				<Box py={2}>{children}</Box>
