@@ -1,6 +1,7 @@
 import BottomTab from "./BottomTab";
+import Character from "./Character";
 import Header from "./Header";
 import HideOnScroll from "./HideOnScroll";
 import Layout from "./Layout";
 
-export { Header, Layout, BottomTab, HideOnScroll };
+export { Header, Character, Layout, BottomTab, HideOnScroll };

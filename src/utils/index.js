@@ -1,4 +1,5 @@
 import store from "./store";
 import routes from "./routes";
+import axios from "./axios";
 
-export { store, routes };
+export { axios, store, routes };

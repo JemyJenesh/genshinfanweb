@@ -1,4 +1,4 @@
-import { Paper } from "@material-ui/core";
+import { Paper, Box, Container } from "@material-ui/core";
 import { BottomTab, Header, HideOnScroll } from "components";
 
 export default function Layout({ children }) {
@@ -7,7 +7,9 @@ export default function Layout({ children }) {
 			<HideOnScroll>
 				<Header />
 			</HideOnScroll>
-			{children}
+			<Container fixed>
+				<Box py={2}>{children}</Box>
+			</Container>
 			<HideOnScroll direction="up">
 				<BottomTab />
 			</HideOnScroll>
