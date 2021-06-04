@@ -29,8 +29,8 @@ export default function Characters() {
 					cellHeight={sm ? (md ? 320 : 280) : 260}
 					cols={sm ? (md ? 5 : 3) : 2}
 				>
-					{[...new Array(20)].map((character) => (
-						<GridListTile key={character}>
+					{[...new Array(20)].map((character, i) => (
+						<GridListTile key={i}>
 							<Skeleton variant="rect" width="100%" height="100%" />
 						</GridListTile>
 					))}

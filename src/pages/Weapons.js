@@ -28,8 +28,8 @@ export default function Weapons() {
 					cellHeight={sm ? (md ? 320 : 280) : 260}
 					cols={sm ? (md ? 5 : 3) : 2}
 				>
-					{[...new Array(20)].map((weapon) => (
-						<GridListTile key={weapon}>
+					{[...new Array(20)].map((weapon, i) => (
+						<GridListTile key={i}>
 							<Skeleton variant="rect" width="100%" height="100%" />
 						</GridListTile>
 					))}
@@ -41,12 +41,13 @@ export default function Weapons() {
 		<Layout>
 			<GridList
 				spacing={sm ? (md ? 10 : 8) : 6}
-				cellHeight={sm ? (md ? 320 : 280) : 260}
+				// cellHeight={sm ? (md ? 320 : 280) : 260}
+				cellHeight={sm ? 220 : 200}
 				cols={sm ? (md ? 5 : 3) : 2}
 			>
 				{data &&
 					data.payload.weapons.map((weapon) => (
-						<GridListTile>
+						<GridListTile key={weapon._id}>
 							<Weapon weapon={weapon} />
 							<GridListTileBar title={weapon.name} />
 						</GridListTile>

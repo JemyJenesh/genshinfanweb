@@ -1,20 +1,10 @@
-import {
-	Grid,
-	Box,
-	makeStyles,
-	Typography,
-	useMediaQuery,
-	useTheme,
-} from "@material-ui/core";
-import { Rating } from "@material-ui/lab";
-import { Layout } from "components";
+import { Grid, Box, makeStyles, Typography } from "@material-ui/core";
+import { Rating, Skeleton } from "@material-ui/lab";
+import { ImageList, Layout } from "components";
 import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router";
 import { axios } from "utils";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
 
 const useStyles = makeStyles((theme) => ({
 	weaponImg: {
@@ -34,9 +24,6 @@ const useStyles = makeStyles((theme) => ({
 export default function WeaponDetails() {
 	const { name } = useParams();
 	const classes = useStyles();
-	const theme = useTheme();
-	const md = useMediaQuery(theme.breakpoints.up("sm"));
-	const lg = useMediaQuery(theme.breakpoints.up("md"));
 	const fetchWeapons = async () => {
 		const { data } = await axios(`/weapons/info/${name}`);
 		return data;
@@ -47,7 +34,25 @@ export default function WeaponDetails() {
 		document.title = `Weapon / ${name}`;
 	}, [name]);
 
-	if (isLoading) return <p>Loading..</p>;
+	if (isLoading)
+		return (
+			<Layout>
+				<Grid container justify="center" spacing={4}>
+					<Grid item xs={12} lg={4}>
+						<Box maxWidth="300px" mx="auto">
+							<Skeleton variant="rect" width={"100%"} height={200} />
+							<Skeleton variant="text" />
+							<Skeleton variant="text" />
+							<Skeleton variant="text" />
+							<Skeleton variant="text" />
+						</Box>
+					</Grid>
+					<Grid item xs={12} lg={8}>
+						<Skeleton variant="rect" width={"100%"} height="60vh" />
+					</Grid>
+				</Grid>
+			</Layout>
+		);
 	const { weapon } = data.payload;
 
 	return (
@@ -100,79 +105,23 @@ export default function WeaponDetails() {
 				</Grid>
 				<Grid container item xs={12} lg={8}>
 					<Grid item xs={12}>
-						<Box mb={4}>
-							<Typography
-								color="secondary"
-								variant="h5"
-								align="center"
-								gutterBottom
-							>
-								Ascension Materials
-							</Typography>
-						</Box>
-						<Box display="flex" justifyContent="center">
-							<GridList
-								style={{ justifyContent: "center" }}
-								cellHeight={240}
-								cols={md ? (lg ? 3 : 2) : 1}
-								spacing={12}
-							>
-								{weapon.ascensionMaterials.map((material) => (
-									<GridListTile
-										key={material.name}
-										style={{ textAlign: "center" }}
-									>
-										<img
-											style={{ maxWidth: 200 }}
-											src={material.iconUrl}
-											alt={material.name}
-										/>
-										<GridListTileBar title={material.name} />
-									</GridListTile>
-								))}
-							</GridList>
-						</Box>
+						<ImageList
+							title="Ascension Materials"
+							list={weapon.ascensionMaterials}
+						/>
 					</Grid>
 				</Grid>
 				<Grid item xs={12} lg={8}>
 					<Grid item xs={12}>
-						<Box mt={6} mb={2}>
-							<Typography
-								color="secondary"
-								variant="h5"
-								align="center"
-								gutterBottom
-							>
-								Ascension Enemy Drops
-							</Typography>
-						</Box>
-						<Box display="flex" justifyContent="center">
-							<GridList
-								style={{ justifyContent: "center" }}
-								cellHeight={240}
-								cols={md ? (lg ? 3 : 2) : 1}
-								spacing={12}
-							>
-								{weapon.ascensionEnemyDrops.map((material) => (
-									<GridListTile
-										key={material.name}
-										style={{ textAlign: "center" }}
-									>
-										<img
-											style={{ maxWidth: 200 }}
-											src={material.iconUrl}
-											alt={material.name}
-										/>
-										<GridListTileBar title={material.name} />
-									</GridListTile>
-								))}
-							</GridList>
-						</Box>
+						<ImageList
+							title="Ascension Enemy Drops"
+							list={weapon.ascensionEnemyDrops}
+						/>
 					</Grid>
 				</Grid>
-				<Grid item xs={12} lg={8}>
+				{/* <Grid item xs={12} lg={8}>
 					<Typography>Ascension Cost</Typography>
-				</Grid>
+				</Grid> */}
 			</Grid>
 		</Layout>
 	);
