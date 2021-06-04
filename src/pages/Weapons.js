@@ -8,7 +8,6 @@ import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Alert from "@material-ui/lab/Alert";
-import { NavLink } from "react-router-dom";
 
 export default function Weapons() {
 	const fetchWeapons = async () => {
