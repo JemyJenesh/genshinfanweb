@@ -6,13 +6,19 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import Icon from "img/icon.png";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import DialogContent from "@material-ui/core/DialogContent";
+import Dialog from "@material-ui/core/Dialog";
+import Box from "@material-ui/core/Box";
 
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
+import PaletteIcon from "@material-ui/icons/Palette";
 import { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectType, toggleDark } from "slices/themesSlice";
+import { changeColor, selectIsDark, toggleDark } from "slices/themeSlice";
 import { useHistory } from "react-router";
+import { useState } from "react";
+import { blue, green, pink, amber, deepOrange } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -21,6 +27,12 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: "space-between",
 		borderBottom: "1px solid " + theme.palette.divider,
 	},
+	marginLeftAuto: {
+		marginLeft: "auto",
+	},
+	marginLeft: {
+		marginLeft: theme.spacing(1),
+	},
 }));
 
 const Header = forwardRef((props, ref) => {
@@ -28,27 +40,101 @@ const Header = forwardRef((props, ref) => {
 	const classes = useStyles();
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const type = useSelector(selectType);
-	const icon = type === "dark" ? <Brightness7Icon /> : <Brightness4Icon />;
+
+	const [isOpen, setIsOpen] = useState(false);
+	const toggleOpen = () => setIsOpen(!isOpen);
+	const isDark = useSelector(selectIsDark);
+	const icon = isDark ? <Brightness7Icon /> : <Brightness4Icon />;
 	const handleToggleDark = () => dispatch(toggleDark());
+	const handleToggleColor = (color) => {
+		dispatch(changeColor(color));
+	};
 	const handleBack = () => history.goBack();
 
 	return (
-		<AppBar ref={ref} position="sticky" elevation={0} color="default">
-			<Toolbar className={classes.root}>
-				{title ? (
-					<IconButton edge="start" onClick={handleBack}>
-						<ArrowBackIcon />
+		<>
+			<AppBar ref={ref} position="sticky" elevation={0} color="default">
+				<Toolbar className={classes.root}>
+					{title ? (
+						<IconButton edge="start" onClick={handleBack}>
+							<ArrowBackIcon />
+						</IconButton>
+					) : (
+						<Avatar alt="app icon" src={Icon} />
+					)}
+					<Typography variant="h6">{title ?? "Genshin Fan Web"}</Typography>
+					<IconButton
+						edge="start"
+						onClick={handleToggleDark}
+						className={classes.marginLeftAuto}
+					>
+						{icon}
 					</IconButton>
-				) : (
-					<Avatar alt="app icon" src={Icon} />
-				)}
-				<Typography variant="h6">{title ?? "Genshin Fan Web"}</Typography>
-				<IconButton edge="end" onClick={handleToggleDark}>
-					{icon}
-				</IconButton>
-			</Toolbar>
-		</AppBar>
+					<IconButton
+						edge="end"
+						onClick={toggleOpen}
+						className={classes.marginLeft}
+					>
+						<PaletteIcon />
+					</IconButton>
+				</Toolbar>
+			</AppBar>
+			<Dialog onClose={toggleOpen} open={isOpen}>
+				<DialogContent>
+					<Typography align="center">Select a theme color</Typography>
+					<Box display="flex" flexWrap="wrap" justifyContent="space-around">
+						<IconButton onClick={() => handleToggleColor("blue")}>
+							<Box
+								bgcolor={blue[600]}
+								height="50px"
+								width="50px"
+								borderRadius="50%"
+							/>
+						</IconButton>
+						<IconButton onClick={() => handleToggleColor("pink")}>
+							<Box
+								bgcolor={pink[600]}
+								height="50px"
+								width="50px"
+								borderRadius="50%"
+							/>
+						</IconButton>
+						<IconButton onClick={() => handleToggleColor("green")}>
+							<Box
+								bgcolor={green[600]}
+								height="50px"
+								width="50px"
+								borderRadius="50%"
+							/>
+						</IconButton>
+						<IconButton onClick={() => handleToggleColor("orange")}>
+							<Box
+								bgcolor={deepOrange[600]}
+								height="50px"
+								width="50px"
+								borderRadius="50%"
+							/>
+						</IconButton>
+						{/* <IconButton onClick={() => handleToggleColor("purple")}>
+							<Box
+								bgcolor={purple[600]}
+								height="50px"
+								width="50px"
+								borderRadius="50%"
+							/>
+						</IconButton> */}
+						<IconButton onClick={() => handleToggleColor("amber")}>
+							<Box
+								bgcolor={amber[600]}
+								height="50px"
+								width="50px"
+								borderRadius="50%"
+							/>
+						</IconButton>
+					</Box>
+				</DialogContent>
+			</Dialog>
+		</>
 	);
 });
 

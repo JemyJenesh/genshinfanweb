@@ -25,7 +25,7 @@ export default function WeaponDetails() {
 	const { name } = useParams();
 	const classes = useStyles();
 	const fetchWeapons = async () => {
-		const { data } = await axios(`/weapons/info/${name}`);
+		const { data } = await axios(`/weapons/info/${name}?infoDataSize=all`);
 		return data;
 	};
 	const { data, isLoading } = useQuery(["weapons", name], fetchWeapons);
@@ -76,7 +76,7 @@ export default function WeaponDetails() {
 							<img
 								className={classes.weaponImg}
 								src={weapon.iconUrl}
-								alt={weapon.originalIconUrl}
+								alt={weapon.name}
 							/>
 						</Box>
 					</Grid>
@@ -98,7 +98,7 @@ export default function WeaponDetails() {
 								<Typography variant="subtitle2" color="textSecondary">
 									Type
 								</Typography>
-								<Typography color="secondary">{weapon.weaponType}</Typography>
+								<Typography color="primary">{weapon.weaponType}</Typography>
 							</Grid>
 						</Grid>
 					</Grid>

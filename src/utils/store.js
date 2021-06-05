@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import drawerReducer from "slices/drawerSlice";
-import themesReducer from "slices/themesSlice";
+import themeReducer from "slices/themeSlice";
 
 const store = configureStore({
 	reducer: {
 		drawer: drawerReducer,
-		themes: themesReducer,
+		theme: themeReducer,
 	},
 });
 export default store;

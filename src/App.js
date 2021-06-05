@@ -10,24 +10,25 @@ import {
 } from "./pages";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
-import { selectType } from "slices/themesSlice";
-import { Themes } from "common";
+import { selectIsDark, selectColor } from "slices/themeSlice";
+import { theme } from "common";
 
 const queryClient = new QueryClient();
 
 export default function App() {
-	const type = useSelector(selectType);
-	const theme = type === "dark" ? Themes.darkTheme : Themes.lightTheme;
+	const isDark = useSelector(selectIsDark);
+	const color = useSelector(selectColor);
+	const currentTheme = theme(isDark, color);
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ThemeProvider theme={theme}>
+			<ThemeProvider theme={currentTheme}>
 				<Switch>
 					<Route path="/" exact component={Home} />
 					<Route path="/characters" exact component={Characters} />
-					<Route path="/characters/:name" exact component={CharacterDetails} />
+					<Route path="/characters/:name" component={CharacterDetails} />
 					<Route path="/weapons" exact component={Weapons} />
-					<Route path="/weapons/:name" exact component={WeaponDetails} />
-					<Route path="/settings" exact component={Settings} />
+					<Route path="/weapons/:name" component={WeaponDetails} />
+					<Route path="/settings" component={Settings} />
 				</Switch>
 			</ThemeProvider>
 		</QueryClientProvider>

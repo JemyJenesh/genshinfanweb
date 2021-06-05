@@ -20,7 +20,7 @@ export default function Layout({ children, showTabs = true, title }) {
 				</HideOnScroll>
 			)}
 			<ScrollTop>
-				<Fab color="secondary" size="small" aria-label="scroll back to top">
+				<Fab color="primary" size="small" aria-label="scroll back to top">
 					<KeyboardArrowUpIcon />
 				</Fab>
 			</ScrollTop>

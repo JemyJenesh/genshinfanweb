@@ -13,7 +13,7 @@ export default function ImageList({ title, list }) {
 	return (
 		<Box mb={6}>
 			<Box>
-				<Typography color="secondary" variant="h5" align="center" gutterBottom>
+				<Typography color="primary" variant="h5" align="center" gutterBottom>
 					{title}
 				</Typography>
 			</Box>
