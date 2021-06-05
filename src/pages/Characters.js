@@ -49,7 +49,10 @@ export default function Characters() {
 					data.payload.characters.map((character) => (
 						<GridListTile key={character.name}>
 							<Character character={character} />
-							<GridListTileBar title={character.name} />
+							<GridListTileBar
+								title={character.name}
+								style={{ textAlign: "center" }}
+							/>
 						</GridListTile>
 					))}
 			</GridList>

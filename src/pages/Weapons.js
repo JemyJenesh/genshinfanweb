@@ -2,7 +2,7 @@ import React from "react";
 import { Layout, Weapon } from "components";
 import { useQuery } from "react-query";
 import { axios } from "utils";
-import { Box, useMediaQuery, useTheme } from "@material-ui/core";
+import { Box, Typography, useMediaQuery, useTheme } from "@material-ui/core";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
@@ -49,7 +49,19 @@ export default function Weapons() {
 					data.payload.weapons.map((weapon) => (
 						<GridListTile key={weapon._id}>
 							<Weapon weapon={weapon} />
-							<GridListTileBar title={weapon.name} />
+							<Box
+								position="absolute"
+								bottom={0}
+								left={0}
+								right={0}
+								width="100%"
+								textAlign="center"
+								bgcolor="rgba(0,0,0,0.5)"
+								py={1}
+								color="white"
+							>
+								<Typography variant="caption">{weapon.name}</Typography>
+							</Box>
 						</GridListTile>
 					))}
 			</GridList>
