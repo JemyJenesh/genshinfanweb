@@ -15,7 +15,12 @@ import Brightness7Icon from "@material-ui/icons/Brightness7";
 import PaletteIcon from "@material-ui/icons/Palette";
 import { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeColor, selectIsDark, toggleDark } from "slices/themeSlice";
+import {
+	changeColor,
+	selectColor,
+	selectIsDark,
+	toggleDark,
+} from "slices/themeSlice";
 import { useHistory } from "react-router";
 import { useState } from "react";
 import { blue, green, pink, amber, deepOrange } from "@material-ui/core/colors";
@@ -33,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
 	marginLeft: {
 		marginLeft: theme.spacing(1),
 	},
+	btn: {
+		width: 50,
+		height: 50,
+		cursor: "pointer",
+		borderRadius: "100%",
+	},
 }));
 
 const Header = forwardRef((props, ref) => {
@@ -44,6 +55,7 @@ const Header = forwardRef((props, ref) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const toggleOpen = () => setIsOpen(!isOpen);
 	const isDark = useSelector(selectIsDark);
+	const color = useSelector(selectColor);
 	const icon = isDark ? <Brightness7Icon /> : <Brightness4Icon />;
 	const handleToggleDark = () => dispatch(toggleDark());
 	const handleToggleColor = (color) => {
@@ -81,56 +93,49 @@ const Header = forwardRef((props, ref) => {
 			</AppBar>
 			<Dialog onClose={toggleOpen} open={isOpen}>
 				<DialogContent>
-					<Typography align="center">Select a theme color</Typography>
-					<Box display="flex" flexWrap="wrap" justifyContent="space-around">
-						<IconButton onClick={() => handleToggleColor("blue")}>
-							<Box
-								bgcolor={blue[600]}
-								height="50px"
-								width="50px"
-								borderRadius="50%"
-							/>
-						</IconButton>
-						<IconButton onClick={() => handleToggleColor("pink")}>
-							<Box
-								bgcolor={pink[600]}
-								height="50px"
-								width="50px"
-								borderRadius="50%"
-							/>
-						</IconButton>
-						<IconButton onClick={() => handleToggleColor("green")}>
-							<Box
-								bgcolor={green[600]}
-								height="50px"
-								width="50px"
-								borderRadius="50%"
-							/>
-						</IconButton>
-						<IconButton onClick={() => handleToggleColor("orange")}>
-							<Box
-								bgcolor={deepOrange[600]}
-								height="50px"
-								width="50px"
-								borderRadius="50%"
-							/>
-						</IconButton>
-						{/* <IconButton onClick={() => handleToggleColor("purple")}>
-							<Box
-								bgcolor={purple[600]}
-								height="50px"
-								width="50px"
-								borderRadius="50%"
-							/>
-						</IconButton> */}
-						<IconButton onClick={() => handleToggleColor("amber")}>
-							<Box
-								bgcolor={amber[600]}
-								height="50px"
-								width="50px"
-								borderRadius="50%"
-							/>
-						</IconButton>
+					<Typography gutterBottom align="center">
+						Select a theme color
+					</Typography>
+					<Box
+						display="flex"
+						flexWrap="wrap"
+						justifyContent="space-around"
+						alignItems="center"
+					>
+						<Box
+							bgcolor={blue[600]}
+							className={classes.btn}
+							mr={2}
+							border={color === "blue" ? 4 : 0}
+							onClick={() => handleToggleColor("blue")}
+						/>
+						<Box
+							bgcolor={pink[600]}
+							className={classes.btn}
+							mr={2}
+							border={color === "pink" ? 4 : 0}
+							onClick={() => handleToggleColor("pink")}
+						/>
+						<Box
+							bgcolor={green[600]}
+							className={classes.btn}
+							mr={2}
+							border={color === "green" ? 4 : 0}
+							onClick={() => handleToggleColor("green")}
+						/>
+						<Box
+							bgcolor={deepOrange[600]}
+							className={classes.btn}
+							mr={2}
+							border={color === "orange" ? 4 : 0}
+							onClick={() => handleToggleColor("orange")}
+						/>
+						<Box
+							bgcolor={amber[600]}
+							className={classes.btn}
+							border={color === "amber" ? 4 : 0}
+							onClick={() => handleToggleColor("amber")}
+						/>
 					</Box>
 				</DialogContent>
 			</Dialog>
